@@ -1,18 +1,6 @@
-package helloGenerics
+package com.github.foostan.genericsSheet
 
 import scala.reflect.runtime.{universe => ru}
-
-object Main {
-  def main(args: Array[String]) {
-    val personData = List(
-      List("foo", "10"),
-      List("bar", "12"),
-      List("bazz"))
-
-    val sheet = SheetParser(personData).extract[PersonSchema]
-    sheet.foreach(row=>println(row.name, row.age))
-  }
-}
 
 case class SheetParser(data: List[List[String]]) {
   def extract[S <: Schema](implicit ttag: ru.TypeTag[S]): List[S] = {
@@ -34,8 +22,3 @@ case class SheetParser(data: List[List[String]]) {
   }
 }
 
-trait Schema
-
-case class PersonSchema
-(name: String,
- age: String) extends Schema
