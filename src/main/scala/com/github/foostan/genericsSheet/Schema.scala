@@ -8,11 +8,11 @@ trait Schema {
   }
 
   def equalsWithOutIdentify(schema: Schema): Boolean = {
-    val schemaA = this.copy(id = "")
-    val schemaB = schema.copy(id = "")
+    val thisFields = this.productIterator.toList.tail
+    val schemaFields = schema.productIterator.toList.tail
 
-    schemaA.toString == schemaB.toString
+    thisFields == schemaFields
   }
 
-  def copy(id: String = this.id): Schema
+  def productIterator: Iterator[Any]
 }
